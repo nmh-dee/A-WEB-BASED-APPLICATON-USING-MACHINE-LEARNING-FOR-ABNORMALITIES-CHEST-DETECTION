@@ -1,0 +1,68 @@
+{% extends "base_menu.html" %}
+{% block content %}
+<h1>All Predicts</h1>
+<p>
+{% if predict_list %}
+<ul>
+  {% for predict in predict_list %}
+    {% if predict.owner == user %}
+    <li>
+        <a href="{% url 'predicts:predict_detail'  predict.id %}">{{ predict.name_patient }}</a>
+        (<a href="{% url 'predicts:predict_update' predict.id %}">Edit</a> |
+        <a href="{% url 'predicts:predict_delete' predict.id %}">Delete</a>)
+     {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>There are no predict in the database.</p>
+{% endif %}
+</p>
+<p>
+<a href="{% url 'predicts:predict_create' %}">Add an Predict</a> |
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}?next={% url 'predicts:all' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}?next={% url 'predicts:all' %}">Login</a>
+{% endif %}
+</p>
+<!--
+<script>
+    function favPost(url, ad_id) {
+    console.log('Requesting JSON');
+    $.post(url, {},  function(rowz){
+        console.log(url, 'finished');
+        $("#unfavorite_star_"+ad_id).toggle();
+        $("#favorite_star_"+ad_id).toggle();
+    }).fail(function(xhr) {
+        alert('Url failed with '+xhr.status+' '+url);
+    });
+}
+</script>
+-->
+
+{% endblock %}
+<!--
+        {% if user.is_authenticated %}  -->
+        <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
+        <!--<a href="#" onclick=
+            "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }} );return false;"
+            {% if ad.id not in favorites %} style="display: none;" {% endif %}
+            id="favorite_star_{{ad.id}}">
+        <span class="fa-stack" style="vertical-align: middle;">
+        <i class="fa fa-star fa-stack-1x" style="color: orange;"></i>
+        <i class="fa fa-star-o fa-stack-1x"></i>
+        </span>
+        </a>  -->
+        <!-- the second href -->
+        <!--<a href="#" onclick=
+             "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }} );return false;"
+            {% if ad.id in favorites %} style="display: none;" {% endif %}
+            id="unfavorite_star_{{ad.id}}">
+        <span class="fa-stack" style="vertical-align: middle;">
+        <i class="fa fa-star fa-stack-1x" style="display: none; color: orange;"></i>
+        <i class="fa fa-star-o fa-stack-1x"></i>
+        </span>
+        </a>
+        {% endif %}
+        -->

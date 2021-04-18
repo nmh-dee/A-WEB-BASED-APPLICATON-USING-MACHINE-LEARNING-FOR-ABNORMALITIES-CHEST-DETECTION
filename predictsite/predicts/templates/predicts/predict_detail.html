@@ -1,0 +1,41 @@
+{% extends "base_menu.html" %}
+{% load humanize %} <!-- https://docs.djangoproject.com/en/3.0/ref/contrib/humanize -->
+{% block head %}
+<style>
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: none;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% if predict.owner == user %}
+        <div id="overlay" class="overlay" style="text-align: center; "
+        onclick="document.getElementById('overlay').style.display = 'none';" >
+        <!--<img style="width:40%;margin-top: 50px; border:3px solid black;" src="{{predict.xray.url}}" > -->
+        <img style="width:40%;margin-top: 50px; border:3px solid black;" src="{{predict.xray_predicted }}"> 
+        </div>
+
+<span style="float: right;">
+    ({{ predict.updated_at|naturaltime }})
+    <a href="{% url 'predicts:predict_update' predict.id %}"><i class="fa fa-pencil"></i></a>
+    <a href="{% url 'predicts:predict_delete' predict.id %}"><i class="fa fa-trash"></i></a>
+</span>
+<h1>{{ predict.name_patient }}</h1>
+<!--<img style="float:right; max-width:50%;" src="{{predict.xray.url}}"
+    onclick="document.getElementById('overlay').style.display = 'block';">    -->
+ <img style="float:right; max-width:50%;" src ="{{predict.xray_predicted }}"
+    onclick="document.getElementById('overlay').style.display = 'block';"> 
+{% endif%}
+<p>
+<a href="{% url 'predicts:all' %}">All predicts</a>
+</p>
+
+{% endblock %}
