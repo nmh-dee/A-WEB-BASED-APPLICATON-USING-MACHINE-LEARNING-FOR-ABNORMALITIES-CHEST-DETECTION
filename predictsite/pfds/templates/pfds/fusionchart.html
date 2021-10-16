@@ -1,0 +1,54 @@
+{% extends "base_menu.html" %}
+{% block head %}
+  <title>FC-python wrapper</title>
+  {% load static %} 
+   <script type="text/javascript" src="{% static "fusioncharts/fusioncharts.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fusion.js" %}"></script> <!-- theme.fint.js-->
+   <style>
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  z-index: 8;
+  display: none;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<td>
+  
+<div id="overlay" class="overlay" style="text-align: center; "
+ onclick="document.getElementById('overlay').style.display = 'none';" >        
+</div>
+
+<span style="float: center;">
+
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    <h1>{{ ppatient.name}}</h1>
+    <p> Created by {{ ppatient.owner}} </p>
+
+
+<td>
+<!--new-->
+<body style="font-family:'Helvetica Neue', Arial; font-size: 16px;">
+  <h3>{{ chartTitle|safe }}</h3>
+<!--new-->
+<div id="chart-1">{{ output|safe }}</div>
+</td>
+  <ul>
+    {% if fvc_list %}
+    {% for fvc in fvc_list %}
+    
+     <p>    FVC in week {{fvc.week}}: {{fvc.fvc_value_final}} (ml) with confidence: {{fvc.confidence}} (%) <br> </p> 
+     </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+</td>
+{% endblock %}

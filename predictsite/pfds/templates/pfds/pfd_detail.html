@@ -1,0 +1,41 @@
+{% extends "base_menu.html" %}
+{% block head %}
+<style>
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: none;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <div id="overlay" class="overlay" style="text-align: center; "
+        onclick="document.getElementById('overlay').style.display = 'none';" >
+        </div>
+<span style="float: center;">
+<h1>{{ ppatient.name}}</h1>
+<p> Created by {{ ppatient.owner}} </p>
+<ul>
+    {% if fvc_list %}
+    {% for fvc in fvc_list %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+     <p>    FVC in week {{fvc.week}}: {{fvc.fvc_value_final}}<br> </p> 
+     </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+</span>
+
+
+<p>
+<a href="{% url 'pfds:all' %}"class="btn btn-primary">All PF predicts</a>
+</p>
+
+{% endblock %}

@@ -20,17 +20,18 @@ from django.views.static import serve
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-
 import os
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls')),
-    path('predicts/', include('predicts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),  # Keep
+    path('',include('home.urls')),
+    path('pfds/',include('pfds.urls')),
+    path('abns/', include('abns.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),      
-]
 
-# Serve the static HTML
+]
+#serve the static HTML
 BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 urlpatterns+= [
     url(r'^site/(?P<path>.*)$',serve,

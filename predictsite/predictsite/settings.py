@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-APP_NAME ='Predict'
+APP_NAME ='Abnormalities Detection'
 import os
 
 from pathlib import Path
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'predicts.apps.PredictsConfig',
+    'pfds.apps.PfdsConfig',
+    'abns.apps.AbnsConfig',
     'home.apps.HomeConfig',
     'django.contrib.humanize',  #add
     'crispy_forms',
@@ -70,7 +71,7 @@ ROOT_URLCONF = 'predictsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['fc_column2d/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,18 +93,16 @@ WSGI_APPLICATION = 'predictsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         #database name
-        'NAME': 'predictxray',
-        'USER': 'marco',
-        'PASSWORD': 'nm442664',
+        'NAME': 'thesis_final',
+        'USER': 'root',
+        'PASSWORD': 'new_password',
         'HOST': '127.0.0.1',
-        'PORT': '2208',
-        'OPTIONS': {'sslmode': 'disable'},
-
-
+        'PORT': '3306',
     }
 }
 
@@ -145,6 +144,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "fc_column2d/templates/static"),
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
@@ -174,5 +178,8 @@ MODEL_ROOT = os.path.join(BASE_DIR, "models")
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
-MEDIA_URL = 'predicts/predict/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'predicts/predict')
+MEDIA_URL = 'abns/abn/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'abns/abn')
+
+PFD_URL = 'pfds/pfd/'
+PFD_ROOT = os.path.join(BASE_DIR,'pfds/pfd')

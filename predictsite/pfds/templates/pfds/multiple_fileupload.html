@@ -1,0 +1,70 @@
+{% extends "base_menu.html" %}
+<!--
+<head> 
+    <meta charset = "UTF-8">
+    <title>Upload PF Patient Informations </title>
+
+</head>
+<body>
+-->
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post" action="/pfds/multipleupload_save" enctype="multipart/form-data" style="margin-left:10%">
+    {% csrf_token %}
+    <h1> Patient Information: </h1>
+    <i> (Please fill in this form to create a pulmonary fibrosis prediction) </i>
+    <br>
+    Name: <br>
+    <input type= "text" name = "name" ><br>
+    Ages:<br>
+    <input type= "text" name = "ages" ><br>
+    Gender:<br> 
+        <input type= "radio" name = "gender" value= 'Male'> Male  <br>
+        <input type= "radio" name = "gender" value ='Female'> Female 
+    <br>
+    Smoke Status: <br>
+    <input type= "radio" name = "smoke" value= 'Never Smoked' > Never smoked<br>
+    <input type= "radio" name = "smoke" value= 'Ex-smoker' > Ex-smoker<br>
+    <input type= "radio" name = "smoke" value= 'Currently smokes' > Currently smokes<br>
+    <!--Enter FVC base: <br>   -->
+    FVC base: <br>
+        <input type = "text" name = "fvc"> <br>
+    Week base: <br>
+        <input type = "text" name = "week"> <br>
+    percent: <br> 
+        <input type ='text' name = "percent"> <br>
+    Start Week:<br> 
+        <input type= "text" name = "week_start"> <br>
+    End Week: <br> <input type= "text" name = "week_end">
+    <br>
+    Patient CT Scan image: <br>
+    <div id="images">
+    <input type= "file" name = "file[]"><br>
+        </div>
+    <input type= "button" class="btn btn-warning" name ="add_image" id="add_image" value = "Add Image">
+    <input type="submit" value= "Save Data"  class="btn btn-primary"> 
+    
+    
+</form>
+<script>
+    document.getElementById("add_image").onclick= function (ev) {
+       
+        var image = document.getElementById("images");
+
+        var newInput=document.createElement("input");
+        newInput.type="file";
+        newInput.name="file[]";
+
+        var br=document.createElement("br");
+        var br1 = document.createElement("br");
+
+        image.appendChild(newInput);
+        image.appendChild(br);
+        image.appendChild(br1);
+
+    }
+</script>
+
+{% endblock%}
+
+<!--</body> -->

@@ -1,7 +1,12 @@
 {% extends "base_menu.html" %}
 {% block content %}
-    <h1>Welcome to {{ settings.APP_NAME }} site.</h1>
+    <center>
+    <h1>Welcome to {{ settings.APP_NAME }} site!</h1>
+    <br>
     <p>
-    This is webapp predict lung disease based on chest Xray images.
+    <h2>Choose an option: </h2> <br>
+    <a href = "{% url 'abns:abn_create' %}" > Create an abnormality patient </a> <br><br>
+    <a href = " {% url 'pfds:pfd_create' %}" > Create a pulmonary fibrosis patient </a> <br>
     </p>
+    </center>
 {% endblock content %}
